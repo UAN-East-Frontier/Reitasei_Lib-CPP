@@ -1,0 +1,14 @@
+﻿  Проверка источников на наличие зависимостей модуля…
+  Vector2.h
+  Компиляция…
+  Vector2.h
+  Figures.cpp
+F:\C++\Reitasei\Reitasei\Figures.cpp(33,41): warning C4305: инициализация: усечение из "double" в "const float"
+F:\C++\Reitasei\Reitasei\Figures.cpp(107,38): warning C4244: аргумент: преобразование "size_t" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Figures.cpp(107,15): warning C4244: аргумент: преобразование "size_t" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Figures.cpp(109,51): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  Vector2.cpp
+F:\C++\Reitasei\Reitasei\Vector2.cpp(59,34): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Vector2.cpp(59,23): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  Создание кода...
+  Reitasei.vcxproj -> F:\C++\Reitasei\x64\Debug\Reitasei.lib
