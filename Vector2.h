@@ -2,7 +2,7 @@
 
 namespace Geometry {
 
-    class Vector2 : sf::Vector2f
+    class Vector2 : public sf::Vector2f
     {
     public:
         Vector2(float x, float y);
