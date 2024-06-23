@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="Matan.cpp" />
+    <ClCompile Include="Spriter.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector2.h" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="Figures.h" />
     <ClInclude Include="Matan.h" />
     <ClInclude Include="Range.h" />
+    <ClInclude Include="Spriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

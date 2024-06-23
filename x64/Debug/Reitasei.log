@@ -1,8 +1,3 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
-  Matan.cpp
-F:\C++\Reitasei\Reitasei\Matan.cpp(13,82): warning C4244: аргумент: преобразование "_Rep" в "unsigned int", возможна потеря данных
-          with
-          [
-              _Rep=__int64
-          ]
+  Spriter.cpp
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Debug\Reitasei.lib
