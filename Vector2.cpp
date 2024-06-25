@@ -1,9 +1,8 @@
 #pragma once
 #include "Vector2.h"
 
-Geometry::Vector2::Vector2(float x, float y) {
-	this->x = x;
-	this->y = y;
+Geometry::Vector2::Vector2(float x, float y) : sf::Vector2f(x, y) {
+
 }
 
 float Geometry::Vector2::length() const {

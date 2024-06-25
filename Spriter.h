@@ -5,50 +5,55 @@
 #include <vector>
 #include <string>
 
-namespace Graphic {
     class Spriter: public sf::Drawable {
     public:
         sf::Sprite sprite;
         sf::Texture texture;
 
-        //Spriter(const char* path);
-
-        /*Spriter(std::string& path);
-
         Spriter(const char* path);
+
+        Spriter(const char* path,sf::Vector2f& position);
+
+        Spriter(std::string& path, sf::Vector2f& position);
+        
+        Spriter(std::string& path);
 
         Spriter(const char* path, sf::IntRect& rect);
 
-        Spriter(std::string& path, sf::IntRect& rect);*/
+        Spriter(std::string& path, sf::IntRect& rect);
 
-        /*inline void setTextureRect(sf::IntRect& rect);
+        Spriter(const char* path, sf::IntRect& rect, sf::Vector2f& position);
 
-        inline void setPosition(const sf::Vector2f& vector);
+        Spriter(std::string& path, sf::IntRect& rect, sf::Vector2f& position);
 
-        inline void setOrigin(const sf::Vector2f& vector);
 
-        inline void setRotation(float angle);
+        void setTextureRect(sf::IntRect& rect);
 
-        inline float getRotation();
+        void setPosition(const sf::Vector2f& vector);
 
-        inline sf::Vector2f getPosition();
+        void setOrigin(const sf::Vector2f& vector);
 
-        inline sf::Vector2f getOrigin();*/
+        void setRotation(float angle);
 
-        /*void setKeyRect(const std::string& key, std::vector<sf::IntRect>& rects);
+        float getRotation();
 
-        void animate(const std::string& keyRect, float duration);*/
+        sf::Vector2f getPosition();
+
+        sf::Vector2f getOrigin();
+
+        void setKeyRect(const std::string& key, std::vector<sf::IntRect>& rects);
+
+        void animate(const std::string& keyRect, float duration);
 
     private:
-       // void loadTexString(std::string& path);
+       bool loadTexString(std::string& path);
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        //void loadTexChar(const char* path);
-        /*sf::Clock clock;
+        bool loadTexChar(const char* path);
+        sf::Clock clock;
         int currentFrame = 0;
-        std::map<std::string, std::vector<sf::IntRect>> texturesRect;*/
+        std::map<std::string, std::vector<sf::IntRect>> texturesRect;
     };
-}
 
 
