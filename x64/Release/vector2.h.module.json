@@ -1,9 +1,22 @@
 {
-    "Version": "1.1",
-    "Data": {
-        "Source": "f:\\c++\\reitasei\\reitasei\\vector2.h",
-        "ProvidedModule": "",
-        "ImportedModules": [],
-        "ImportedHeaderUnits": []
-    }
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "x64\\Release\\Vector2.h.obj",
+            "outputs": [
+                "F:\\C++\\Reitasei\\x64\\Release\\Reitasei.pdb",
+                "x64\\Release\\",
+                "F:\\C++\\Reitasei\\Reitasei\\x64\\Release\\Vector2.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "Vector2.h",
+                    "source-path": "f:\\c++\\reitasei\\reitasei\\vector2.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
 }

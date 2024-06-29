@@ -1,5 +1,3 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
-  Vector2.cpp
-F:\C++\Reitasei\Reitasei\Vector2.cpp(58,34): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-F:\C++\Reitasei\Reitasei\Vector2.cpp(58,23): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  Collision.cpp
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Release\Reitasei.lib
