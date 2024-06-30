@@ -4,6 +4,14 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <functional>
+#include <optional>
+#include <utility> 
+
+
+
+using CallbackCollision = std::function<void()>;
+
 
 class Collision : public sf::Drawable{
 public:
@@ -19,6 +27,9 @@ public:
 
     static void collisionsEvents();
 
+    std::optional<CallbackCollision> callbackCollision;
+    
+
 private:
     sf::RectangleShape shape;
     static std::vector<Collision> collisions;
@@ -30,3 +41,6 @@ private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
+
+
+

@@ -47,14 +47,14 @@ void Collision::collisionsEvents() {
     for (size_t i = 0; i <  collisions.size(); ++i) {
         for (size_t j = i + 1; j < collisions.size(); ++j) {
             if (collisions[i].isIntersect(collisions[j])) {
-                std::cout << collisions[i].id << " intersect " << collisions[j].id << std::endl;
+                if (collisions[i].callbackCollision.has_value()) {
+                    
+                    
+                }
             }
         }
     }
 
 }
-
-
-
 
 
