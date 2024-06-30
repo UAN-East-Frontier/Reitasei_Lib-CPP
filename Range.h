@@ -61,6 +61,16 @@ public:
 		}
 	}
 
+	std::optional<int> findIndex(T& value) {
+		auto it = std::find(arr.begin(), arr.end(), value);
+		if (it != arr.end()) {
+			return std::distance(arr.begin(), it);
+		}
+		else {
+			return std::nullopt;
+		}
+	}
+
 	bool exist(T& value) {
 		auto it = std::find(arr.begin(), arr.end(), value);
 		return it != arr.end();

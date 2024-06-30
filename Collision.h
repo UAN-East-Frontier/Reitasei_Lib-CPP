@@ -7,13 +7,25 @@
 #include <functional>
 #include <optional>
 #include <utility> 
+#include <memory>
+#include "Range.h"
 
 
+class Collision;
 
-using CallbackCollision = std::function<void()>;
+struct CollisionInfo {
+    std::shared_ptr <Collision> collision;
+    std::shared_ptr <Collision> hitCollision;
+
+    CollisionInfo(std::shared_ptr<Collision>  col1, std::shared_ptr<Collision> col2);
+};
+
+
+using CallbackCollision = std::function<void(CollisionInfo&)>;
 
 
 class Collision : public sf::Drawable{
+
 public:
     std::string name;
     Collision(sf::Sprite sprite);
@@ -27,7 +39,9 @@ public:
 
     static void collisionsEvents();
 
-    std::optional<CallbackCollision> callbackCollision;
+    void setCallbackCollision(CallbackCollision callback);
+
+    bool operator==(const Collision& other) const;
     
 
 private:
@@ -38,9 +52,12 @@ private:
     bool isExit = false;
     uint32_t id = 0;
     static uint32_t count;
+    std::optional<CallbackCollision> callbackCollision;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
+
+
 
 
 
