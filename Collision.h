@@ -28,6 +28,8 @@ class Collision : public sf::Drawable{
 
 public:
     std::string name;
+
+    Collision(sf::Vector2f size);
     Collision(sf::Sprite sprite);
     Collision(sf::Sprite sprite,sf::FloatRect rect);
 
@@ -37,7 +39,19 @@ public:
 
     void setPosition(sf::Vector2f pos);
 
+    sf::Vector2f getPosition();
+
     static void collisionsEvents();
+
+    bool enterCollision();
+
+    bool stayCollision();
+
+    bool exitCollision();
+
+    sf::Vector2f getSize();
+
+    void setSize(sf::Vector2f vec);
 
     void setCallbackCollision(CallbackCollision callback);
 
@@ -53,6 +67,7 @@ private:
     uint32_t id = 0;
     static uint32_t count;
     std::optional<CallbackCollision> callbackCollision;
+    void initCollision();
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
