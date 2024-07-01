@@ -67,9 +67,8 @@ void Collision::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void Collision::setCallbackCollision(CallbackCollision callback)
 {
-    if (callbackCollision.has_value()) {
-        std::cout << "Calback has value!!!" << std::endl;
-        return;
+    if (callbackCollision != nullptr) {
+        callbackCollision = nullptr;
     }
     Range collisionRange(collisions);
     auto index = collisionRange.findIndex(*this);
@@ -77,7 +76,7 @@ void Collision::setCallbackCollision(CallbackCollision callback)
         std::cout << "Collision not found!!!" << std::endl;
         return;
     }
-    callbackCollision = callback;
+    callbackCollision = std::make_shared<CallbackCollision>(callback);
     collisions[index.value()] = *this;
 }
 
@@ -94,12 +93,12 @@ void Collision::collisionsEvents() {
                     collisions[i].isStay = true;
                     collisions[i].isEnter = false;
                 }
-                if (collisions[i].callbackCollision.has_value())
+                if (collisions[i].callbackCollision != nullptr )
                 {
                     std::shared_ptr<Collision> colPtr1{ std::make_shared<Collision> (collisions[i]) };
                     std::shared_ptr<Collision> colPtr2{ std::make_shared<Collision>(collisions[j]) };
                     CollisionInfo colInfo(colPtr1, colPtr2);
-                    collisions[i].callbackCollision.value() ({colInfo});
+                    (*Collision::collisions[i].callbackCollision) ({colInfo});
                 }
             }
             else {

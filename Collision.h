@@ -66,7 +66,7 @@ private:
     bool isExit = false;
     uint32_t id = 0;
     static uint32_t count;
-    std::optional<CallbackCollision> callbackCollision;
+    std::shared_ptr<CallbackCollision> callbackCollision;
     void initCollision();
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
