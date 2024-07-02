@@ -1,8 +1,3 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
   Collision.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(82,17): warning C4244: инициализация: преобразование "_Ty" в "int", возможна потеря данных
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(82,17): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(82,17): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(82,17): warning C4244:             _Ty=__int64
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(82,17): warning C4244:         ]
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Release\Reitasei.lib

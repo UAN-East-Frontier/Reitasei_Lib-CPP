@@ -1,6 +1,6 @@
 #include "Collision.h"
 
-std::vector<Collision> Collision::collisions; 
+std::vector<std::unique_ptr<Collision>> Collision::collisions;
 uint32_t Collision::count;
 
 bool Collision::operator==(const Collision& other) const
@@ -15,7 +15,7 @@ void Collision::initCollision()
     shape.setOutlineColor(sf::Color::Red);
     id = ++count;
     name = "Default";
-    collisions.push_back(*this);
+    collisions.push_back(std::make_unique<Collision>(std::move(*this)));
 }
 
 Collision::Collision(sf::Vector2f size)
@@ -25,6 +25,7 @@ Collision::Collision(sf::Vector2f size)
 }
 
 Collision::Collision(sf::Sprite sprite) {
+    std::cout << "Constructor" << std::endl;
         sf::FloatRect rect = sprite.getGlobalBounds();
         shape = sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
         shape.setPosition(sprite.getPosition());
@@ -37,6 +38,42 @@ Collision::Collision(sf::Sprite sprite, sf::FloatRect rect) {
     initCollision();
 }
 
+
+
+Collision::Collision(Collision&& other)  noexcept : name(std::move(other.name)),
+shape(std::move(other.shape)),
+id(other.id), isEnter(other.isEnter), isStay(other.isStay), isExit(other.isExit),callbackCollision(std::move(other.callbackCollision))
+{
+
+}
+
+
+Collision& Collision::operator=(Collision&& other) noexcept
+{
+    if (this != &other) {
+        name = std::move(other.name);
+        shape = std::move(other.shape);
+        id = other.id;
+        isEnter = other.isEnter;
+        isStay = other.isStay;
+        isExit = other.isExit;
+        callbackCollision = std::move(other.callbackCollision);
+        other.id = 0;
+        other.isEnter = false;
+        other.isStay = false;
+        other.isExit = false;
+    }
+    return *this;
+}
+
+
+
+
+Collision::~Collision()
+{
+    std::cout << "Destructor " << id << std::endl;
+}
+
 bool Collision::isIntersect(Collision otherCol) {
     return this->shape.getGlobalBounds().intersects(otherCol.shape.getGlobalBounds());
 }
@@ -45,15 +82,9 @@ uint32_t  Collision::getId() {
     return id;
 }
 
+
 void  Collision::setPosition(sf::Vector2f pos) {
-    Range collisionRange(collisions);
-    auto index = collisionRange.findIndex(*this);
-    if (!index.has_value()) {
-        std::cout << "Collision not found!!!" << std::endl;
-        return;
-    }
-    shape.setPosition(pos);
-    collisions[index.value()].shape = shape;
+    this->shape.setPosition(pos);
 }
 
 sf::Vector2f Collision::getPosition()
@@ -67,55 +98,61 @@ void Collision::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void Collision::setCallbackCollision(CallbackCollision callback)
 {
-    if (callbackCollision != nullptr) {
-        callbackCollision = nullptr;
-    }
-    Range collisionRange(collisions);
-    auto index = collisionRange.findIndex(*this);
-    if (!index.has_value()) {
-        std::cout << "Collision not found!!!" << std::endl;
-        return;
-    }
-    callbackCollision = std::make_shared<CallbackCollision>(callback);
-    collisions[index.value()].callbackCollision = callbackCollision;
+    this->callbackCollision = callbackCollision;
 }
 
 void Collision::callCollisionFunc(size_t i, size_t j)
 {
-    std::shared_ptr<Collision> colPtr1{ std::make_shared<Collision>(collisions[i]) };
-    std::shared_ptr<Collision> colPtr2{ std::make_shared<Collision>(collisions[j]) };
-    CollisionInfo colInfo(colPtr1, colPtr2);
-    (*Collision::collisions[i].callbackCollision) ({ colInfo });
+    CollisionInfo colInfo(std::move(collisions[i]), std::move(collisions[j]));
+    auto& col = *collisions[i];
+    (*col.callbackCollision) ({ colInfo });
 }
+
+void Collision::remove(uint32_t id)
+{
+    auto iter = collisions.begin(); 
+    while (iter != collisions.end()) {
+        auto& col = *iter; 
+
+        if (id == col->id) {
+            iter = collisions.erase(iter); 
+            return;
+        }
+        else {
+            ++iter; 
+        }
+    }
+}
+
+
 
 void Collision::collisionsEvents() {
     for (size_t i = 0; i < collisions.size(); ++i) {
         for (size_t j = i + 1; j < collisions.size(); ++j) {
-            if (collisions[i].name != collisions[j].name)
+            if ((*collisions[i]).name != (*collisions[j]).name)
                 continue;
-
-            if (collisions[i].isIntersect(collisions[j])) {
-                if (!collisions[i].isEnter && !collisions[i].isStay) {  //Make map data type instead bool. It's break logic if will two or more collisions. 
-                    collisions[i].isEnter = true;
+            if ((*collisions[i]).isIntersect(std::move(*collisions[j]))) {
+                if (!(*collisions[i]).isEnter && !(*collisions[i]).isStay) {  //Make map data type instead bool. It's break logic if will two or more collisions. 
+                    (*collisions[i]).isEnter = true;
                 }
-                else if (!collisions[i].isStay) {
-                    collisions[i].isStay = true;
-                    collisions[i].isEnter = false;
+                else if (!(*collisions[i]).isStay) {
+                    (*collisions[i]).isStay = true;
+                    (*collisions[i]).isEnter = false;
                 }
-                if (collisions[i].callbackCollision != nullptr )
+                if ((*collisions[i]).callbackCollision != nullptr )
                 {
                     callCollisionFunc(i, j);
                 }
             }
             else {
-                if (collisions[i].isExit) {
-                    collisions[i].isExit = false;
+                if ((*collisions[i]).isExit) {
+                    (*collisions[i]).isExit = false;
                     callCollisionFunc(i, j);
                 }
-                else if (collisions[i].isEnter || collisions[i].isStay) {
-                    collisions[i].isExit = true;
-                    collisions[i].isStay = false;
-                    collisions[i].isEnter = false;
+                else if ((*collisions[i]).isEnter || (*collisions[i]).isStay) {
+                    (*collisions[i]).isExit = true;
+                    (*collisions[i]).isStay = false;
+                    (*collisions[i]).isEnter = false;
                     callCollisionFunc(i, j);
                 }
             }
@@ -145,18 +182,11 @@ sf::Vector2f Collision::getSize()
 
 void Collision::setSize(sf::Vector2f vec)
 {
-    Range collisionRange(collisions);
-    auto index = collisionRange.findIndex(*this);
-    if (!index.has_value()) {
-        std::cout << "Collision not found!!!" << std::endl;
-        return;
-    }
-    shape.setSize(vec);
-    collisions[index.value()] = *this;
+    this->shape.setSize(vec);
 }
 
-CollisionInfo::CollisionInfo(std::shared_ptr<Collision> col1, std::shared_ptr<Collision> col2)
+CollisionInfo::CollisionInfo(std::unique_ptr<Collision> col1, std::unique_ptr<Collision> col2)
 {
-    collision = col1;
-    hitCollision = col2;
+    collision = std::move(col1);
+    hitCollision = std::move(col2);
 }
