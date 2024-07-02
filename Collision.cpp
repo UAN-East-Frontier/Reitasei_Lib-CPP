@@ -53,7 +53,7 @@ void  Collision::setPosition(sf::Vector2f pos) {
         return;
     }
     shape.setPosition(pos);
-    collisions[index.value()] = *this;
+    collisions[index.value()].shape = shape;
 }
 
 sf::Vector2f Collision::getPosition()
@@ -77,44 +77,55 @@ void Collision::setCallbackCollision(CallbackCollision callback)
         return;
     }
     callbackCollision = std::make_shared<CallbackCollision>(callback);
-    collisions[index.value()] = *this;
+    collisions[index.value()].callbackCollision = callbackCollision;
 }
 
+void Collision::callCollisionFunc(size_t i, size_t j)
+{
+    std::shared_ptr<Collision> colPtr1{ std::make_shared<Collision>(collisions[i]) };
+    std::shared_ptr<Collision> colPtr2{ std::make_shared<Collision>(collisions[j]) };
+    CollisionInfo colInfo(colPtr1, colPtr2);
+    (*Collision::collisions[i].callbackCollision) ({ colInfo });
+}
 
 void Collision::collisionsEvents() {
-    for (size_t i = 0; i <  collisions.size(); ++i) {
+    for (size_t i = 0; i < collisions.size(); ++i) {
         for (size_t j = i + 1; j < collisions.size(); ++j) {
             if (collisions[i].name != collisions[j].name)
                 continue;
+
             if (collisions[i].isIntersect(collisions[j])) {
-                if (!collisions[i].isEnter) //Make map data type instead bool. It's break logic if will two or more collisions.
+                if (!collisions[i].isEnter && !collisions[i].isStay) {  //Make map data type instead bool. It's break logic if will two or more collisions. 
                     collisions[i].isEnter = true;
+                }
                 else if (!collisions[i].isStay) {
                     collisions[i].isStay = true;
                     collisions[i].isEnter = false;
                 }
                 if (collisions[i].callbackCollision != nullptr )
                 {
-                    std::shared_ptr<Collision> colPtr1{ std::make_shared<Collision> (collisions[i]) };
-                    std::shared_ptr<Collision> colPtr2{ std::make_shared<Collision>(collisions[j]) };
-                    CollisionInfo colInfo(colPtr1, colPtr2);
-                    (*Collision::collisions[i].callbackCollision) ({colInfo});
+                    callCollisionFunc(i, j);
                 }
             }
             else {
-                if (collisions[i].isExit)
+                if (collisions[i].isExit) {
                     collisions[i].isExit = false;
-                else if (collisions[i].isEnter || collisions[i].isStay)
+                    callCollisionFunc(i, j);
+                }
+                else if (collisions[i].isEnter || collisions[i].isStay) {
                     collisions[i].isExit = true;
+                    collisions[i].isStay = false;
+                    collisions[i].isEnter = false;
+                    callCollisionFunc(i, j);
+                }
             }
         }
     }
-
 }
 
 bool Collision::enterCollision()
 {
-    return isExit;
+    return isEnter;
 }
 
 bool Collision::stayCollision()

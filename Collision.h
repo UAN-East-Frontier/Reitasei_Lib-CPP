@@ -61,13 +61,14 @@ public:
 private:
     sf::RectangleShape shape;
     static std::vector<Collision> collisions;
-    bool isEnter = false;
-    bool isStay = false;
-    bool isExit = false;
+    bool isEnter;
+    bool isStay ;
+    bool isExit;
     uint32_t id = 0;
     static uint32_t count;
     std::shared_ptr<CallbackCollision> callbackCollision;
     void initCollision();
+    static void callCollisionFunc(size_t i,size_t j);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
