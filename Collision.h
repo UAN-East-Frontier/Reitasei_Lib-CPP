@@ -14,15 +14,8 @@
 
 class Collision;
 
-struct CollisionInfo {
-    std::shared_ptr <Collision> collision;
-    std::shared_ptr <Collision> hitCollision;
 
-    CollisionInfo(std::unique_ptr<Collision>  col1, std::unique_ptr<Collision> col2);
-};
-
-
-using CallbackCollision = std::function<void(CollisionInfo&)>;
+using CallbackCollision = std::function<void(Collision& col1, Collision& col2)>;
 
 
 class Collision : public sf::Drawable{
@@ -33,14 +26,12 @@ public:
     Collision(sf::Vector2f size);
     Collision(sf::Sprite sprite);
     Collision(sf::Sprite sprite,sf::FloatRect rect);
-    Collision(Collision&& other) noexcept;
-    Collision& operator=(Collision&& other) noexcept;
     ~Collision();
 
 
 
 
-    bool isIntersect(Collision otherCol);
+    bool isIntersect(Collision& otherCol);
 
     uint32_t getId();
 
@@ -63,25 +54,25 @@ public:
     void setCallbackCollision(CallbackCollision callback);
 
     bool operator==(const Collision& other) const;
+
     
 
 private:
-    sf::RectangleShape shape;
-    static std::vector<std::unique_ptr<Collision>> collisions;
+    sf::RectangleShape* shape;
+    static std::vector<Collision*> collisions;
     bool isEnter;
     bool isStay ;
     bool isExit;
     uint32_t id = 0;
     static uint32_t count;
-    std::shared_ptr<CallbackCollision> callbackCollision;
+    std::optional<CallbackCollision> callbackCollision;
     void initCollision();
-    static void callCollisionFunc(size_t i,size_t j);
-    static void remove(uint32_t id);
+    std::optional<int> getIndex();
+    void callCollisionFunc(size_t i, size_t j);
+ 
+
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
-
-
-
 
 
