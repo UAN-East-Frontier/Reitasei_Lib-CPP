@@ -9,27 +9,28 @@
 #include <utility> 
 #include <memory>
 #include <map>
-#include "Range.h"
 
 
 class Collision;
 
 
-using CallbackCollision = std::function<void(Collision& col1, Collision& col2)>;
+using CallbackCollision = std::function<void(Collision& col1)>;
+using TouchedCollisions = std::function<void(std::vector<Collision*> collisions, std::vector<Collision*> touchCollisions)>;
 
 
-class Collision : public sf::Drawable{
+class Collision : public sf::Drawable {
 
 public:
-    std::string name;
-
     Collision(sf::Vector2f size);
     Collision(sf::Sprite sprite);
-    Collision(sf::Sprite sprite,sf::FloatRect rect);
+    Collision(sf::Sprite sprite, sf::FloatRect rect);
     ~Collision();
 
+    void setName(std::string newName);
 
+    std::string getName();
 
+    void disableGroup(std::string name);
 
     bool isIntersect(Collision& otherCol);
 
@@ -39,13 +40,20 @@ public:
 
     sf::Vector2f getPosition();
 
+    static void touchedCollisison(std::string name, std::string touchName);
+    static void unTouchedCollisison(std::string name, std::string touchName);
+
+
     static void collisionsEvents();
 
-    bool enterCollision();
+    bool enterCollision(uint32_t touchId);
+    bool enterCollision(Collision& col);
 
-    bool stayCollision();
+    bool stayCollision(uint32_t touchId);
+    bool stayCollision(Collision& col);
 
-    bool exitCollision();
+    bool exitCollision(uint32_t touchId);
+    bool exitCollision(Collision& col);
 
     sf::Vector2f getSize();
 
@@ -55,24 +63,26 @@ public:
 
     bool operator==(const Collision& other) const;
 
-    
+
 
 private:
+    std::string name;
+    std::map<std::string, bool> group = std::map<std::string, bool>();
+    static std::map<std::string, std::vector<Collision*>> groupsCollisions;
+    static std::map<std::string, std::string> dictionaryCollisions;
     sf::RectangleShape* shape;
-    static std::vector<Collision*> collisions;
-    bool isEnter;
-    bool isStay ;
-    bool isExit;
+    void removeElementGroup(std::string name);
+    std::map<uint32_t, bool> isEnter;
+    std::map<uint32_t, bool> isStay;
+    std::map<uint32_t, bool> isExit;
     uint32_t id = 0;
     static uint32_t count;
     std::optional<CallbackCollision> callbackCollision;
     void initCollision();
     std::optional<int> getIndex();
-    void callCollisionFunc(size_t i, size_t j);
- 
+    void callCollisionFunc(Collision& col1);
+
 
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
-
-

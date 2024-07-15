@@ -79,17 +79,19 @@
     }
 
     void Spriter::animate(const std::string& keyRect, float duration) {
-        if (!texturesRect.contains(keyRect))
+        if (currentRect != keyRect)
         {
-            std::cout << "Key is not found!" << std::endl;
-            return;
+            currentRect = keyRect;
+            currentFrame = (currentFrame + 1) % texturesRect[currentRect].size();
+            sprite.setTextureRect(texturesRect[currentRect][currentFrame]);
         }
-        if (clock.getElapsedTime().asSeconds() > duration) {
-            currentFrame = (currentFrame + 1) % texturesRect[keyRect].size();
-            sprite.setTextureRect(texturesRect[keyRect][currentFrame]);
+        else if (clock.getElapsedTime().asSeconds() > duration) {
+            currentFrame = (currentFrame + 1) % texturesRect[currentRect].size();
+            sprite.setTextureRect(texturesRect[currentRect][currentFrame]);
             clock.restart();
         }
     }
+    
 
 
     bool Spriter::loadTexString(std::string& path) {

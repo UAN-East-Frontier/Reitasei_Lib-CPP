@@ -1,6 +1,7 @@
 #include "Collision.h"
 
-std::vector<Collision*> Collision::collisions;
+std::map<std::string, std::vector<Collision*>> Collision::groupsCollisions; //Contains arrays groups collisions
+std::map<std::string, std::string>  Collision::dictionaryCollisions; //Contains keys names groups collisions
 
 uint32_t Collision::count;
 
@@ -15,9 +16,8 @@ void Collision::initCollision()
     shape->setOutlineThickness(1.f);
     shape->setOutlineColor(sf::Color::Red);
     id = ++count;
-    name = "Default";
-    collisions.push_back(this);
-    std::cout << "Create " << id << std::endl;
+    group["Default"] = true;
+    setName("Default");
 }
 
 Collision::Collision(sf::Vector2f size)
@@ -27,11 +27,11 @@ Collision::Collision(sf::Vector2f size)
 }
 
 Collision::Collision(sf::Sprite sprite) {
-        sf::FloatRect rect = sprite.getGlobalBounds();
-        shape = new sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
-        shape->setPosition(sprite.getPosition());
-        initCollision();
-    }
+    sf::FloatRect rect = sprite.getGlobalBounds();
+    shape = new sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
+    shape->setPosition(sprite.getPosition());
+    initCollision();
+}
 
 Collision::Collision(sf::Sprite sprite, sf::FloatRect rect) {
     shape = new sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
@@ -44,19 +44,49 @@ Collision::Collision(sf::Sprite sprite, sf::FloatRect rect) {
 Collision::~Collision()
 {
     delete shape;
-    auto iter = collisions.begin();
-    int index = 0;
-    while (iter != collisions.end()) {
-        auto& col = *iter;
-        if (id == col->id) {
-            collisions.erase(iter);
-        }
-        else {
+    removeElementGroup(name);
+}
+
+void  Collision::setName(std::string newName) {
+    std::string oldName = name;
+    name = newName;
+    removeElementGroup(oldName);
+    group.erase(oldName);
+    if (groupsCollisions.count(name) == 0)
+        groupsCollisions[name] = std::vector<Collision*>();
+    groupsCollisions[name].push_back(this);
+}
+
+void Collision::removeElementGroup(std::string name) {
+    if (groupsCollisions.count(name) == 1) {
+        auto iter = groupsCollisions[name].begin();
+        while (iter != groupsCollisions[name].end()) {
+            auto& col = *iter;
+            if (this == col) {
+                iter = groupsCollisions[name].erase(iter);
+                break;
+            }
             ++iter;
-            ++index;
+        }
+        if (groupsCollisions[name].size() == 0)
+            groupsCollisions.erase(name);
+    }
+}
+
+std::string  Collision::getName() {
+    return name;
+}
+
+void Collision::disableGroup(std::string groupName) {
+    group[groupName] = false;
+    auto* collisions = &groupsCollisions[name];
+    for (size_t i = 0; i < (*collisions).size(); ++i) {
+        if (this == (*collisions)[i]) {
+            (*collisions)[i]->group[groupName] = false;
+            return;
         }
     }
- 
+
 }
 
 bool Collision::isIntersect(Collision& otherCol) {
@@ -67,23 +97,6 @@ bool Collision::isIntersect(Collision& otherCol) {
 
 uint32_t  Collision::getId() {
     return id;
-}
-
-std::optional<int> Collision::getIndex()
-{
-    auto iter = collisions.begin();
-    int i = 0;
-    while (iter != collisions.end()) {
-        auto& col = *iter;
-        if (id == col->id) {
-            return i;
-        }
-        else {
-            ++iter;
-            i++;
-        }
-    }
-    return std::nullopt;
 }
 
 void  Collision::setPosition(sf::Vector2f pos) {
@@ -100,58 +113,106 @@ void Collision::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-void Collision::callCollisionFunc(size_t i, size_t j)
+void Collision::callCollisionFunc(Collision& col1)
 {
-    if ((*collisions[i]).callbackCollision.has_value()) {
-        (*Collision::collisions[i]->callbackCollision)(*Collision::collisions[i], *Collision::collisions[j]);
+    if (this->callbackCollision.has_value()) {
+        this->callbackCollision.value() (col1);
     }
 }
 
-void Collision::collisionsEvents() {
-    for (size_t i = 0; i < collisions.size(); ++i) {
-        for (size_t j = i + 1; j < collisions.size(); ++j) {
-            if ((*collisions[i]).name != (*collisions[j]).name)
-                continue;
-            if ((*collisions[i]).isIntersect(*collisions[j])) {
-                if (!(*collisions[i]).isEnter && !(*collisions[i]).isStay) {  //Make map data type instead bool. It's break logic if will two or more collisions. 
-                    (*collisions[i]).isEnter = true;
-                }
-                else if (!(*collisions[i]).isStay) {
-                    (*collisions[i]).isStay = true;
-                    (*collisions[i]).isEnter = false;
-                }
+void Collision::touchedCollisison(std::string name, std::string touchName) {
+    if (groupsCollisions.count(name) == 1) {
+        if (groupsCollisions.count(touchName) == 1) {
+            dictionaryCollisions[name] = touchName;
+            for (size_t i = 0; i < groupsCollisions[name].size(); ++i) {
+                groupsCollisions[name][i]->group[touchName] = true;
+            }
+        }
+        else std::cout << "Group collision " << touchName << " not exists!" << std::endl;
+    }
+    else std::cout << "Group collision " << name << " not exists!" << std::endl;
+}
 
-                (*collisions[i]).callCollisionFunc(i, j);
-            }
-            else {
-                if ((*collisions[i]).isExit) {
-                    (*collisions[i]).isExit = false;
-                    (*collisions[i]).callCollisionFunc(i, j);
-                }
-                else if ((*collisions[i]).isEnter || (*collisions[i]).isStay) {
-                    (*collisions[i]).isExit = true;
-                    (*collisions[i]).isStay = false;
-                    (*collisions[i]).isEnter = false;
-                    (*collisions[i]).callCollisionFunc(i, j);
-                }
-            }
+void Collision::unTouchedCollisison(std::string name, std::string touchName) {
+    if (groupsCollisions.count(name) == 1) {
+        dictionaryCollisions.erase(name);
+        for (size_t i = 0; i < groupsCollisions[name].size(); ++i) {
+            groupsCollisions[name][i]->group.erase(touchName);
         }
     }
 }
 
-bool Collision::enterCollision()
-{
-    return isEnter;
+void Collision::collisionsEvents() {
+    for (auto& element : dictionaryCollisions) {
+        if (groupsCollisions.count(element.first) == 1) {
+            if (groupsCollisions.count(element.second) == 1) {
+                auto* collisions = &groupsCollisions[element.first];
+                auto* touchCollisions = &groupsCollisions[element.second];
+                for (size_t i = 0; i < (*collisions).size(); i++) {
+                    for (size_t j = 0; j < (*touchCollisions).size(); j++) {
+                        if ((*collisions)[i]->group[(*touchCollisions)[j]->name] == false)
+                            continue;
+                        uint32_t touchId = (*touchCollisions)[j]->id;
+                        if ((*(*collisions)[i]).isIntersect(*(*touchCollisions)[j])) {
+                            if (!(*(*collisions)[i]).isEnter[touchId] && !(*(*collisions)[i]).isStay[touchId])
+                                (*(*collisions)[i]).isEnter[touchId] = true;
+
+                            else if (!(*(*collisions)[i]).isStay[touchId]) {
+                                (*(*collisions)[i]).isStay[touchId] = true;
+                                (*(*collisions)[i]).isEnter[touchId] = false;
+                            }
+
+                            (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
+                        }
+                        else {
+                            if ((*(*collisions)[i]).isExit[touchId]) {
+                                (*(*collisions)[i]).isExit[touchId] = false;
+                                (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
+                            }
+                            else if ((*(*collisions)[i]).isEnter[touchId] || (*(*collisions)[i]).isStay[touchId]) {
+                                (*(*collisions)[i]).isExit[touchId] = true;
+                                (*(*collisions)[i]).isStay[touchId] = false;
+                                (*(*collisions)[i]).isEnter[touchId] = false;
+                                (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
+                            }
+                        }
+                    }
+                }
+            }
+            else std::cout << "Group collision " << element.first << " not exists!" << std::endl;
+        }
+        else std::cout << "Group collision " << element.second << " not exists!" << std::endl;
+    }
 }
 
-bool Collision::stayCollision()
+bool Collision::enterCollision(uint32_t touchId)
 {
-    return isStay;
+    return isEnter[touchId];
 }
 
-bool Collision::exitCollision()
+bool Collision::enterCollision(Collision& col)
 {
-    return isExit;
+    return isEnter[col.id];
+}
+
+bool Collision::stayCollision(uint32_t touchId)
+{
+    return isStay[touchId];
+}
+
+bool Collision::stayCollision(Collision& col)
+{
+    return isStay[col.id];
+}
+
+bool Collision::exitCollision(uint32_t touchId)
+{
+    return isExit[touchId];
+}
+
+bool Collision::exitCollision(Collision& col)
+{
+    return isExit[col.id];
 }
 
 sf::Vector2f Collision::getSize()
@@ -166,11 +227,12 @@ void Collision::setSize(sf::Vector2f vec)
 
 void Collision::setCallbackCollision(CallbackCollision callback)
 {
-    for (int i = 0; i < collisions.size(); i++) {
-        if (collisions[i]->id == id) {
-            collisions[i]->callbackCollision = callback;
-            return;
+    for (auto& arrayPair : groupsCollisions) {
+        for (auto& col : arrayPair.second) {
+            if (col == this) {
+                col->callbackCollision = callback;
+                return;
+            }
         }
     }
 }
-

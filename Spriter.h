@@ -52,6 +52,7 @@
 
         bool loadTexChar(const char* path);
         sf::Clock clock;
+        std::string currentRect;
         int currentFrame = 0;
         std::map<std::string, std::vector<sf::IntRect>> texturesRect;
     };
