@@ -1,4 +1,5 @@
 #include "Collision.h"
+#include <string.h>
 
 std::map<std::string, std::vector<Collision*>> Collision::groupsCollisions; //Contains arrays groups collisions
 std::map<std::string, std::string>  Collision::dictionaryCollisions; //Contains keys names groups collisions
@@ -123,7 +124,7 @@ void Collision::callCollisionFunc(Collision& col1)
 void Collision::touchedCollisison(std::string name, std::string touchName) {
     if (groupsCollisions.count(name) == 1) {
         if (groupsCollisions.count(touchName) == 1) {
-            dictionaryCollisions[name] = touchName;
+            dictionaryCollisions[name + "_" + touchName] = touchName;
             for (size_t i = 0; i < groupsCollisions[name].size(); ++i) {
                 groupsCollisions[name][i]->group[touchName] = true;
             }
@@ -144,44 +145,58 @@ void Collision::unTouchedCollisison(std::string name, std::string touchName) {
 
 void Collision::collisionsEvents() {
     for (auto& element : dictionaryCollisions) {
-        if (groupsCollisions.count(element.first) == 1) {
-            if (groupsCollisions.count(element.second) == 1) {
-                auto* collisions = &groupsCollisions[element.first];
-                auto* touchCollisions = &groupsCollisions[element.second];
-                for (size_t i = 0; i < (*collisions).size(); i++) {
-                    for (size_t j = 0; j < (*touchCollisions).size(); j++) {
-                        if ((*collisions)[i]->group[(*touchCollisions)[j]->name] == false)
-                            continue;
-                        uint32_t touchId = (*touchCollisions)[j]->id;
-                        if ((*(*collisions)[i]).isIntersect(*(*touchCollisions)[j])) {
-                            if (!(*(*collisions)[i]).isEnter[touchId] && !(*(*collisions)[i]).isStay[touchId])
-                                (*(*collisions)[i]).isEnter[touchId] = true;
+        size_t pos = 0;
+        std::string token;
+        std::string first;
+        std::string s = element.first;
+        std::string delimiter = "_";
+        while ((pos = s.find(delimiter)) != std::string::npos) {
+            token = s.substr(0, pos);
+            first = token;
+            break;
+        }
+        if (groupsCollisions.count(first) == 0) {
+            std::cout << "Group collision " << first << " not exists!" << std::endl;
+            continue;;
+        }
+        if (groupsCollisions.count(element.second) == 0) {
+            std::cout << "Group collision " << element.second << " not exists!" << std::endl;
+            continue;
+        }
+        auto* collisions = &groupsCollisions[first];
+        auto* touchCollisions = &groupsCollisions[element.second];
+        for (size_t i = 0; i < (*collisions).size(); i++) {
+            for (size_t j = 0; j < (*touchCollisions).size(); j++) {
+                if ((*collisions)[i]->group[(*touchCollisions)[j]->name] == false)
+                    continue;
+                uint32_t touchId = (*touchCollisions)[j]->id;
+                if ((*(*collisions)[i]).isIntersect(*(*touchCollisions)[j])) {
+                    if (!(*(*collisions)[i]).isEnter[touchId] && !(*(*collisions)[i]).isStay[touchId])
+                        (*(*collisions)[i]).isEnter[touchId] = true;
 
-                            else if (!(*(*collisions)[i]).isStay[touchId]) {
-                                (*(*collisions)[i]).isStay[touchId] = true;
-                                (*(*collisions)[i]).isEnter[touchId] = false;
-                            }
+                    else if (!(*(*collisions)[i]).isStay[touchId]) {
+                        (*(*collisions)[i]).isStay[touchId] = true;
+                        (*(*collisions)[i]).isEnter[touchId] = false;
+                    }
 
-                            (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
-                        }
-                        else {
-                            if ((*(*collisions)[i]).isExit[touchId]) {
-                                (*(*collisions)[i]).isExit[touchId] = false;
-                                (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
-                            }
-                            else if ((*(*collisions)[i]).isEnter[touchId] || (*(*collisions)[i]).isStay[touchId]) {
-                                (*(*collisions)[i]).isExit[touchId] = true;
-                                (*(*collisions)[i]).isStay[touchId] = false;
-                                (*(*collisions)[i]).isEnter[touchId] = false;
-                                (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
-                            }
-                        }
+                    (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
+                }
+                else {
+                    if ((*(*collisions)[i]).isExit[touchId]) {
+                        (*(*collisions)[i]).isExit[touchId] = false;
+                        (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
+                    }
+                    else if ((*(*collisions)[i]).isEnter[touchId] || (*(*collisions)[i]).isStay[touchId]) {
+                        (*(*collisions)[i]).isExit[touchId] = true;
+                        (*(*collisions)[i]).isStay[touchId] = false;
+                        (*(*collisions)[i]).isEnter[touchId] = false;
+                        (*collisions)[i]->callCollisionFunc(*(*touchCollisions)[j]);
                     }
                 }
             }
-            else std::cout << "Group collision " << element.first << " not exists!" << std::endl;
+
         }
-        else std::cout << "Group collision " << element.second << " not exists!" << std::endl;
+
     }
 }
 
