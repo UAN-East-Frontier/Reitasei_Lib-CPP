@@ -4,11 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include <memory>
 
     class Spriter: public sf::Drawable {
     public:
         sf::Sprite sprite;
-        sf::Texture texture;
+        std::shared_ptr<sf::Texture> texture;
 
         Spriter(const char* path);
 
@@ -26,7 +27,6 @@
 
         Spriter(std::string& path, sf::IntRect& rect, sf::Vector2f& position);
 
-
         void setTextureRect(sf::IntRect& rect);
 
         void setPosition(const sf::Vector2f& vector);
@@ -34,6 +34,8 @@
         void setOrigin(const sf::Vector2f& vector);
 
         void setRotation(float angle);
+
+        void changeTexture(std::string path);
 
         float getRotation();
 

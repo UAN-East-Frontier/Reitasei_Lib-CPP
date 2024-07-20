@@ -23,19 +23,19 @@ void Collision::initCollision()
 
 Collision::Collision(sf::Vector2f size)
 {
-    shape = new sf::RectangleShape(size);
+    shape = std::make_shared <sf::RectangleShape>(sf::RectangleShape(size));
     initCollision();
 }
 
 Collision::Collision(sf::Sprite sprite) {
     sf::FloatRect rect = sprite.getGlobalBounds();
-    shape = new sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
+    shape = std::make_shared<sf::RectangleShape>(sf::RectangleShape(sf::Vector2f(rect.width, rect.height)));
     shape->setPosition(sprite.getPosition());
     initCollision();
 }
 
 Collision::Collision(sf::Sprite sprite, sf::FloatRect rect) {
-    shape = new sf::RectangleShape(sf::Vector2f(rect.width, rect.height));
+    shape = std::make_shared<sf::RectangleShape>(sf::RectangleShape(sf::Vector2f(rect.width, rect.height)));
     shape->setPosition(sprite.getPosition());
     initCollision();
 }
@@ -44,7 +44,6 @@ Collision::Collision(sf::Sprite sprite, sf::FloatRect rect) {
 
 Collision::~Collision()
 {
-    delete shape;
     removeElementGroup(name);
 }
 

@@ -2,8 +2,6 @@
 #include "Spriter.h"
 
 
-
-
     Spriter::Spriter(std::string& path)  {
         loadTexString(path);
     }
@@ -36,14 +34,18 @@
 
     Spriter::Spriter(const char* path, sf::IntRect& rect, sf::Vector2f& position)
     {
-        if (loadTexChar(path))
+        if (loadTexChar(path)) {
+            sprite.setTextureRect(rect);
             sprite.setPosition(position);
+        }
     }
 
     Spriter::Spriter(std::string& path, sf::IntRect& rect, sf::Vector2f& position)
     {
-        if (loadTexString(path))
+        if (loadTexString(path)) {
+            sprite.setTextureRect(rect);
             sprite.setPosition(position);
+        }
     }
 
     void  Spriter::setTextureRect(sf::IntRect& rect) {
@@ -92,14 +94,26 @@
         }
     }
     
-
+    void Spriter::changeTexture(std::string path) {
+        texture.reset();
+        texture = std::make_shared<sf::Texture>(sf::Texture());
+        if (!texture->loadFromFile(path)) {
+            return;
+        }
+        sprite.setTextureRect(sf::IntRect(0, 0, texture->getSize().x, texture->getSize().y));
+        sprite.setTexture(*texture);
+    }
 
     bool Spriter::loadTexString(std::string& path) {
-        if (texture.loadFromFile(path)) {
-            sprite.setTexture(texture);
+        texture = std::make_shared<sf::Texture>(sf::Texture());
+        if (texture->loadFromFile(path)) {
+            sprite.setTexture(*texture);
             return true;
         }
-        else std::cout << "Warning: Texture didn't load!" << std::endl;
+        else { 
+            std::cout << "Warning: Texture didn't load!" << std::endl;
+            texture.reset();
+        }
         return false;
     }
 
@@ -108,10 +122,14 @@
     }
 
     bool Spriter::loadTexChar(const char* path) {
-        if (texture.loadFromFile(path)) {
-            sprite.setTexture(texture);
+        texture = std::make_shared<sf::Texture>(sf::Texture());
+        if (texture->loadFromFile(path)) {
+            sprite.setTexture(*texture);
             return true;
         }
-        else std::cout << "Warning: Texture didn't load!" << std::endl;
+        else {
+            std::cout << "Warning: Texture didn't load!" << std::endl;
+            texture.reset();
+        }
         return false;
     }

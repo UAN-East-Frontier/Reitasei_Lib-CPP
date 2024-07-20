@@ -70,7 +70,7 @@ private:
     std::map<std::string, bool> group = std::map<std::string, bool>();
     static std::map<std::string, std::vector<Collision*>> groupsCollisions;
     static std::map<std::string, std::string> dictionaryCollisions;
-    sf::RectangleShape* shape;
+    std::shared_ptr<sf::RectangleShape> shape;
     void removeElementGroup(std::string name);
     std::map<uint32_t, bool> isEnter;
     std::map<uint32_t, bool> isStay;
