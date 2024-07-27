@@ -51,6 +51,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>true</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -147,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animate.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="Matan.cpp" />
@@ -155,6 +157,7 @@
     <ClCompile Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animate.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Figures.h" />
     <ClInclude Include="Matan.h" />

@@ -6,57 +6,77 @@
 #include <string>
 #include <memory>
 
-    class Spriter: public sf::Drawable {
-    public:
-        sf::Sprite sprite;
-        std::shared_ptr<sf::Texture> texture;
+class Spriter : public sf::Drawable {
+public:
+    sf::Sprite sprite;
+    std::shared_ptr<sf::Texture> texture;
 
-        Spriter(const char* path);
+    Spriter(const char* path);
 
-        Spriter(const char* path,sf::Vector2f& position);
+    Spriter(const char* path, const sf::Vector2f& position);
 
-        Spriter(std::string& path, sf::Vector2f& position);
-        
-        Spriter(std::string& path);
+    Spriter(const std::string& path, const sf::Vector2f& position);
 
-        Spriter(const char* path, sf::IntRect& rect);
+    Spriter(const std::string& path);
 
-        Spriter(std::string& path, sf::IntRect& rect);
+    Spriter(const char* path, const sf::IntRect& rect);
 
-        Spriter(const char* path, sf::IntRect& rect, sf::Vector2f& position);
+    Spriter(const std::string& path, const sf::IntRect& rect);
 
-        Spriter(std::string& path, sf::IntRect& rect, sf::Vector2f& position);
+    Spriter(const char* path, sf::IntRect& rect, const sf::Vector2f& position);
 
-        void setTextureRect(sf::IntRect& rect);
+    Spriter(const std::string& path, sf::IntRect& rect, const sf::Vector2f& position);
 
-        void setPosition(const sf::Vector2f& vector);
+    void setTextureRect(const sf::IntRect& rect);
 
-        void setOrigin(const sf::Vector2f& vector);
+    void setPosition(const sf::Vector2f& vector);
 
-        void setRotation(float angle);
+    void setOrigin(const sf::Vector2f& vector);
 
-        void changeTexture(std::string path);
+    void setRotation(float angle);
 
-        float getRotation();
+    void changeTexture(const std::string& path, const sf::IntRect& rect);
 
-        sf::Vector2f getPosition();
+    float getRotation();
 
-        sf::Vector2f getOrigin();
+    void setScale(const sf::Vector2f& size);
 
-        void setKeyRect(const std::string& key, std::vector<sf::IntRect>& rects);
+    sf::Vector2f getScale();
 
-        void animate(const std::string& keyRect, float duration);
+    sf::Vector2u getSize();
 
-    private:
-       bool loadTexString(std::string& path);
+    void setColor(const sf::Color& color);
 
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    sf::Color getColor();
 
-        bool loadTexChar(const char* path);
-        sf::Clock clock;
-        std::string currentRect;
-        int currentFrame = 0;
-        std::map<std::string, std::vector<sf::IntRect>> texturesRect;
-    };
+    sf::Vector2f getPosition();
 
+    sf::Vector2f getOrigin();
+
+    void setKeyRect(const std::string& key, const std::vector<sf::IntRect>& rects);
+
+    void animate(const std::string& keyRect, float duration);
+
+    void animate(float duration, uint32_t minRow);
+
+    void animate(float duration, uint32_t minRow, uint32_t maxRow);
+
+    void resetAnimation();
+    
+private:
+    bool loadTexString(const std::string& path);
+
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    bool loadTexChar(const char* path);
+    sf::Clock clock;
+    std::string currentRect;
+    int currentFrame = 0;
+    int currentNumSprite = 0;
+    std::map<std::string, std::vector<sf::IntRect>> texturesRect;
+    std::shared_ptr <std::vector<std::vector<sf::Sprite>>> matrixSprites;
+    std::pair<std::string,std::shared_ptr <std::vector<std::vector<sf::Sprite>>>> minrowMatrixSpritesCache;
+    std::pair< std::string,std::shared_ptr <std::vector<std::vector<sf::Sprite>>>> maxrowMatrixSpritesCache;
+    void setMatrixSprite(const sf::IntRect& rect);
+};
 

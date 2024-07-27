@@ -11,6 +11,8 @@ template <typename T>
 class Range {
 public:
 
+	Range() {}
+
 	Range(const std::vector<T>& vec) : arr(vec) {}
 
 	Range& operator=(const Range& other) {
