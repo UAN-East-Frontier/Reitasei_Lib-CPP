@@ -61,8 +61,12 @@ public:
 
     void animate(float duration, uint32_t minRow, uint32_t maxRow);
 
+    sf::Sprite getSpriteFromMatrix(int num);
+
+    sf::Vector2i getTileSize();
+
     void resetAnimation();
-    
+
 private:
     bool loadTexString(const std::string& path);
 
@@ -77,6 +81,7 @@ private:
     std::shared_ptr <std::vector<std::vector<sf::Sprite>>> matrixSprites;
     std::pair<std::string,std::shared_ptr <std::vector<std::vector<sf::Sprite>>>> minrowMatrixSpritesCache;
     std::pair< std::string,std::shared_ptr <std::vector<std::vector<sf::Sprite>>>> maxrowMatrixSpritesCache;
+    std::shared_ptr<sf::Vector2i> tileSize;
     void setMatrixSprite(const sf::IntRect& rect);
 };
 

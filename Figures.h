@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-namespace Geometry {
+namespace gm {
 	class RoundRect : public sf::Shape {
 	public:
 		RoundRect(sf::Vector2f size = { 0, 0 }, float radius = 0);

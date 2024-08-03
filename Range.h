@@ -53,7 +53,7 @@ public:
 		}
 	}
 
-	std::optional<T> find(T& value) {
+	std::optional<T> find(const T& value) {
 		auto it = std::find(arr.begin(), arr.end(), value);
 		if (it != arr.end()) {
 			return value;
@@ -63,7 +63,7 @@ public:
 		}
 	}
 
-	std::optional<int> findIndex(T& value) {
+	std::optional<int> findIndex(const T& value) {
 		auto it = std::find(arr.begin(), arr.end(), value);
 		if (it != arr.end()) {
 			return std::distance(arr.begin(), it);
@@ -73,12 +73,12 @@ public:
 		}
 	}
 
-	bool exist(T& value) {
+	bool exist(const T& value) {
 		auto it = std::find(arr.begin(), arr.end(), value);
 		return it != arr.end();
 	}
 
-	Range<T> where(T& value) {
+	Range<T> where(const T& value) {
 		std::vector<T> result;
 		std::copy_if(arr.begin(), arr.end(), std::back_inserter(result),
 			[value](int fvalue) { return fvalue == value; });
@@ -89,11 +89,11 @@ public:
 		return arr;
 	}
 
-	void push_back(T& value) {
+	void push_back(const T& value) {
 		arr.push_back(value);
 	}
 
-	void insert(size_t pos, T& value) {
+	void insert(size_t pos, const T& value) {
 		arr.insert(pos, value);
 	}
 

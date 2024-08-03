@@ -21,27 +21,27 @@ using TouchedCollisions = std::function<void(std::vector<Collision*> collisions,
 class Collision : public sf::Drawable {
 
 public:
-    Collision(sf::Vector2f size);
-    Collision(sf::Sprite sprite);
-    Collision(sf::Sprite sprite, sf::FloatRect rect);
+    Collision(const sf::Vector2f& size);
+    Collision(const sf::Sprite& sprite);
+    Collision(const sf::Sprite& sprite, const sf::FloatRect& rect);
     ~Collision();
 
-    void setName(std::string newName);
+    void setName(const std::string& newName);
 
     std::string getName();
 
-    void disableGroup(std::string name);
+    void disableGroup(const std::string& name);
 
-    bool isIntersect(Collision& otherCol);
+    bool isIntersect(const Collision& otherCol);
 
     uint32_t getId();
 
-    void setPosition(sf::Vector2f pos);
+    void setPosition(const sf::Vector2f& pos);
 
     sf::Vector2f getPosition();
 
-    static void touchedCollisison(std::string name, std::string touchName);
-    static void unTouchedCollisison(std::string name, std::string touchName);
+    static void touchedCollisison(const std::string& name, const std::string& touchName);
+    static void unTouchedCollisison(const std::string& name, const std::string& touchName);
 
 
     static void collisionsEvents();
@@ -59,7 +59,7 @@ public:
 
     void setSize(sf::Vector2f vec);
 
-    void setCallbackCollision(CallbackCollision callback);
+    void setCallbackCollision(const CallbackCollision& callback);
 
     bool operator==(const Collision& other) const;
 
@@ -71,7 +71,7 @@ private:
     static std::map<std::string, std::vector<Collision*>> groupsCollisions;
     static std::map<std::string, std::string> dictionaryCollisions;
     std::shared_ptr<sf::RectangleShape> shape;
-    void removeElementGroup(std::string name);
+    void removeElementGroup(const std::string& name);
     std::map<uint32_t, bool> isEnter;
     std::map<uint32_t, bool> isStay;
     std::map<uint32_t, bool> isExit;
@@ -79,7 +79,6 @@ private:
     static uint32_t count;
     std::optional<CallbackCollision> callbackCollision;
     void initCollision();
-    std::optional<int> getIndex();
     void callCollisionFunc(Collision& col1);
 
 

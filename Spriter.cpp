@@ -56,11 +56,13 @@ Spriter::Spriter(const std::string& path, sf::IntRect& rect, const sf::Vector2f&
     }
 }
 
+
 void Spriter::setMatrixSprite(const sf::IntRect& rect) {
     int width = rect.width;
     int height = rect.height;
     int rows = texture->getSize().y / height;
     int cols = texture->getSize().x / width;
+    tileSize = std::make_shared<sf::Vector2i>(rect.getSize());
     matrixSprites = std::make_shared<std::vector<std::vector<sf::Sprite>>>(std::vector<std::vector<sf::Sprite>>());
     for (size_t i = 0; i < rows; i++)
     {
@@ -74,7 +76,6 @@ void Spriter::setMatrixSprite(const sf::IntRect& rect) {
         }
         matrixSprites->push_back(sprites);
     }
-
 }
 
 void  Spriter::setTextureRect(const sf::IntRect& rect) {
@@ -228,6 +229,37 @@ void Spriter::animate(float duration, uint32_t minRow, uint32_t maxRow) {
         currentNumSprite = (currentNumSprite + 1) % (rows * cols);
         clock.restart();
     }
+}
+
+sf::Sprite Spriter::getSpriteFromMatrix(int num)
+{
+    if (matrixSprites == nullptr) {
+        std::cout << "Error: Matrix sprites not init! Use ctor with argument int rect for init." << std::endl;
+        return sf::Sprite();
+    }
+    if (num == -1) {
+        return sf::Sprite();
+    }
+    int rows = matrixSprites->size();
+    int cols = (*matrixSprites)[rows - 1].size();
+    int row = (num / cols) % rows;
+    int col = num % cols;
+
+    return (*matrixSprites)[row][col];
+}
+
+sf::Vector2i Spriter::getTileSize() {
+    return *tileSize;
+}
+
+void Spriter::resetAnimation()
+{
+    currentNumSprite = 0;
+    clock.restart();
+    if (minrowMatrixSpritesCache.second != nullptr)
+        sprite.setTextureRect((*minrowMatrixSpritesCache.second)[0][0].getTextureRect());
+    if (maxrowMatrixSpritesCache.second != nullptr)
+        sprite.setTextureRect((*maxrowMatrixSpritesCache.second)[0][0].getTextureRect());
 }
 
 void Spriter::changeTexture(const std::string& path, const sf::IntRect& rect) {

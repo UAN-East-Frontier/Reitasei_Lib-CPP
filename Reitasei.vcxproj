@@ -151,6 +151,8 @@
     <ClCompile Include="Animate.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Figures.cpp" />
+    <ClCompile Include="Gui.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Matan.cpp" />
     <ClCompile Include="Spriter.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -160,6 +162,8 @@
     <ClInclude Include="Animate.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Figures.h" />
+    <ClInclude Include="Gui.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Matan.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Spriter.h" />

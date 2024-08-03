@@ -21,20 +21,20 @@ void Collision::initCollision()
     setName("Default");
 }
 
-Collision::Collision(sf::Vector2f size)
+Collision::Collision(const sf::Vector2f& size)
 {
     shape = std::make_shared <sf::RectangleShape>(sf::RectangleShape(size));
     initCollision();
 }
 
-Collision::Collision(sf::Sprite sprite) {
+Collision::Collision(const sf::Sprite& sprite) {
     sf::FloatRect rect = sprite.getGlobalBounds();
     shape = std::make_shared<sf::RectangleShape>(sf::RectangleShape(sf::Vector2f(rect.width, rect.height)));
     shape->setPosition(sprite.getPosition());
     initCollision();
 }
 
-Collision::Collision(sf::Sprite sprite, sf::FloatRect rect) {
+Collision::Collision(const sf::Sprite& sprite, const sf::FloatRect& rect) {
     shape = std::make_shared<sf::RectangleShape>(sf::RectangleShape(sf::Vector2f(rect.width, rect.height)));
     shape->setPosition(sprite.getPosition());
     initCollision();
@@ -47,7 +47,7 @@ Collision::~Collision()
     removeElementGroup(name);
 }
 
-void  Collision::setName(std::string newName) {
+void  Collision::setName(const std::string& newName) {
     std::string oldName = name;
     name = newName;
     removeElementGroup(oldName);
@@ -57,7 +57,7 @@ void  Collision::setName(std::string newName) {
     groupsCollisions[name].push_back(this);
 }
 
-void Collision::removeElementGroup(std::string name) {
+void Collision::removeElementGroup(const std::string& name) {
     if (groupsCollisions.count(name) == 1) {
         auto iter = groupsCollisions[name].begin();
         while (iter != groupsCollisions[name].end()) {
@@ -77,7 +77,7 @@ std::string  Collision::getName() {
     return name;
 }
 
-void Collision::disableGroup(std::string groupName) {
+void Collision::disableGroup(const std::string& groupName) {
     group[groupName] = false;
     auto* collisions = &groupsCollisions[name];
     for (size_t i = 0; i < (*collisions).size(); ++i) {
@@ -89,7 +89,7 @@ void Collision::disableGroup(std::string groupName) {
 
 }
 
-bool Collision::isIntersect(Collision& otherCol) {
+bool Collision::isIntersect(const Collision& otherCol) {
     sf::FloatRect boundsA = this->shape->getGlobalBounds();
     sf::FloatRect boundsB = otherCol.shape->getGlobalBounds();
     return boundsA.intersects(boundsB);
@@ -99,7 +99,7 @@ uint32_t  Collision::getId() {
     return id;
 }
 
-void  Collision::setPosition(sf::Vector2f pos) {
+void  Collision::setPosition(const sf::Vector2f& pos) {
     shape->setPosition(pos);
 }
 
@@ -120,7 +120,7 @@ void Collision::callCollisionFunc(Collision& col1)
     }
 }
 
-void Collision::touchedCollisison(std::string name, std::string touchName) {
+void Collision::touchedCollisison(const std::string& name, const std::string& touchName) {
     if (groupsCollisions.count(name) == 1) {
         if (groupsCollisions.count(touchName) == 1) {
             dictionaryCollisions[name + "_" + touchName] = touchName;
@@ -133,7 +133,7 @@ void Collision::touchedCollisison(std::string name, std::string touchName) {
     else std::cout << "Group collision " << name << " not exists!" << std::endl;
 }
 
-void Collision::unTouchedCollisison(std::string name, std::string touchName) {
+void Collision::unTouchedCollisison(const std::string& name, const std::string& touchName) {
     if (groupsCollisions.count(name) == 1) {
         dictionaryCollisions.erase(name);
         for (size_t i = 0; i < groupsCollisions[name].size(); ++i) {
@@ -239,7 +239,7 @@ void Collision::setSize(sf::Vector2f vec)
     shape->setSize(vec);
 }
 
-void Collision::setCallbackCollision(CallbackCollision callback)
+void Collision::setCallbackCollision(const CallbackCollision& callback)
 {
     for (auto& arrayPair : groupsCollisions) {
         for (auto& col : arrayPair.second) {

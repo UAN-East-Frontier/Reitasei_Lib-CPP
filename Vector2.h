@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-namespace Geometry {
+namespace gm {
 
     class Vector2 : public sf::Vector2f
     {

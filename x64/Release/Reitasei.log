@@ -1,17 +1,13 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
-  Spriter.cpp
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,61): warning C4267: аргумент: преобразование из "size_t" в "T"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,61): warning C4267:         with
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,61): warning C4267:         [
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,61): warning C4267:             T=int
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,61): warning C4267:         ]
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,49): warning C4267: аргумент: преобразование из "size_t" в "T"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,49): warning C4267:         with
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,49): warning C4267:         [
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,49): warning C4267:             T=int
-F:\C++\Reitasei\Reitasei\Spriter.cpp(72,49): warning C4267:         ]
-F:\C++\Reitasei\Reitasei\Spriter.cpp(178,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(179,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(223,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(224,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Map.cpp
+F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:         with
+F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:         [
+F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:             T=float
+F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:         ]
+F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:         with
+F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:         [
+F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:             T=float
+F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:         ]
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Release\Reitasei.lib

@@ -2,7 +2,7 @@
 #include "Figures.h"
 #include <cmath>
 
-using namespace Geometry;
+using namespace gm;
 
 RoundRect::RoundRect(sf::Vector2f size, float radius)
 	: m_size(size)
