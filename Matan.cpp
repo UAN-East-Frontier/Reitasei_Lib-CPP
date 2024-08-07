@@ -23,7 +23,7 @@ sf::Vector2f circleVector(sf::Vector2f center, float velocity, float radius, flo
     return sf::Vector2f(x, y);
 }
 
-sf::Vector2f curveBezier(float t, sf::Vector2f p0, sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f p3) { 
+sf::Vector2f curveBezier(float t, sf::Vector2f p0, sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f p3) {
     if (t > 1)
         t = 1;
     if (t < 0)
@@ -35,11 +35,24 @@ sf::Vector2f curveBezier(float t, sf::Vector2f p0, sf::Vector2f p1, sf::Vector2f
     float uuu = uu * u;
     float ttt = tt * t;
 
-    sf::Vector2f p = uuu * p0; 
-    p += 3 * uu * t * p1;     
-    p += 3 * u * tt * p2;     
-    p += ttt * p3;             
+    sf::Vector2f p = uuu * p0;
+    p += 3 * uu * t * p1;
+    p += 3 * u * tt * p2;
+    p += ttt * p3;
 
     return p;
+}
+
+float getAngleRotate(const sf::Vector2f& obj, const sf::Vector2f& target) {
+    sf::Vector2f direction = target - obj;
+    float angle = std::atan2f(direction.y, direction.x);
+    float degress = angle * 180 / 3.14159265f;
+    return degress;
+}
+
+float getDirectionAngleRotate(const sf::Vector2f& direction) {
+    float angle = std::atan2f(direction.y, direction.x);
+    float angleDegrees = angle * 180 / 3.14159265f;
+    return angleDegrees - 90; //-90 for up part ykazavala on vector 
 }
 

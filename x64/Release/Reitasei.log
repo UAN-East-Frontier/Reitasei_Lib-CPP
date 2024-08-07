@@ -1,13 +1,8 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
-  Map.cpp
-F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
-F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:         with
-F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:         [
-F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:             T=float
-F:\C++\Reitasei\Reitasei\Map.cpp(81,92): warning C4244:         ]
-F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244: аргумент: преобразование "size_t" в "T", возможна потеря данных
-F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:         with
-F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:         [
-F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:             T=float
-F:\C++\Reitasei\Reitasei\Map.cpp(81,76): warning C4244:         ]
+  Matan.cpp
+F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244: аргумент: преобразование "_Rep" в "unsigned int", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:         with
+F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:         [
+F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:             _Rep=__int64
+F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:         ]
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Release\Reitasei.lib
