@@ -43,16 +43,16 @@ sf::Vector2f curveBezier(float t, sf::Vector2f p0, sf::Vector2f p1, sf::Vector2f
     return p;
 }
 
-float getAngleRotate(const sf::Vector2f& obj, const sf::Vector2f& target) {
+float getPositionAngleRotate(const sf::Vector2f& obj, const sf::Vector2f& target) {
     sf::Vector2f direction = target - obj;
     float angle = std::atan2f(direction.y, direction.x);
-    float degress = angle * 180 / 3.14159265f;
+    float degress = angle * 180 / PI;
     return degress;
 }
 
 float getDirectionAngleRotate(const sf::Vector2f& direction) {
     float angle = std::atan2f(direction.y, direction.x);
-    float angleDegrees = angle * 180 / 3.14159265f;
+    float angleDegrees = angle * 180 / PI;
     return angleDegrees - 90; //-90 for up part ykazavala on vector 
 }
 

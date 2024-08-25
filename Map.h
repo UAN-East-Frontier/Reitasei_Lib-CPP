@@ -20,6 +20,8 @@ public:
     void animateTile(uint32_t layer, uint32_t row, uint32_t col, const std::string& texturePath, const sf::Vector2i& size, float duration);
     void animateTile(const std::vector<uint32_t>& layers, const std::vector<uint32_t>& rows, const std::vector<uint32_t>& cols, const std::vector<std::string>& texturesPath, const sf::Vector2i& size, float duration);
     void resetAnimateTile(uint32_t layer, uint32_t row, uint32_t col, const std::string& texturePath, sf::Vector2i size);
+    void setColorTileMap(sf::Color color);
+    void setColorLayerTileMap(uint32_t layer,sf::Color color);
 
 private:
     std::vector<Spriter> layers;

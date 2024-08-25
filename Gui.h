@@ -20,6 +20,8 @@ class Button : public sf::Drawable {
 public:
 	Button(const TextLabel& textLabel);
 	Button(const sf::Texture& texture);
+	Button(const Button& other);
+	Button& operator=(const Button& other);
 
 	void setShapeSize();
 	void setBackgroundColor(const sf::Color& color);
@@ -59,4 +61,20 @@ private:
 	std::unique_ptr<sf::Vector2f> addedShapeSize;
 	bool isHover = false;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+};
+
+
+struct MouseCursor
+{
+public:
+	MouseCursor(const std::string& path);
+	std::unique_ptr<sf::Cursor> cursor;
+	void setCursor(std::shared_ptr<sf::RenderWindow> window);
+	void resetCursor(std::shared_ptr<sf::RenderWindow> window);
+	void eventCursorEnterWindow(std::shared_ptr<sf::RenderWindow> window, const sf::Event& event);
+	void setHotspot(std::shared_ptr<sf::RenderWindow> window,sf::Vector2u vector);
+
+private:
+	sf::Image image;
+
 };

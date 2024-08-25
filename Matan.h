@@ -4,6 +4,8 @@
 #include <chrono>
 #include <cmath>
 
+#define PI 3.141592653589793223846
+
 int getRandomNumber(int min, int max);
 
 float sinWave(float x, float a, float b, float c);

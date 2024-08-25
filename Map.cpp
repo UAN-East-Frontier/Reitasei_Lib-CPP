@@ -27,6 +27,39 @@ Map::Map(const std::vector<std::string>& cvssPath, const std::vector<std::string
     }
 }
 
+void Map::setColorTileMap(sf::Color color) {
+    for (size_t i = 0; i < layers.size(); i++)
+    {
+        auto layerMatrixIdSprites = layersMatrixSprite[i];
+        for (size_t j = 0; j < layerMatrixIdSprites.size(); j++)
+        {
+            auto MatrixSprites = layersMatrixSprite[i][j];
+            for (size_t k = 0; k < MatrixSprites.size(); k++)
+            {
+                if (MatrixSprites[k].getTexture() != nullptr) {
+                    sf::Vector2i tileSize = layers[i].getTileSize();
+                    layersMatrixSprite[i][j][k].setColor(color);
+                }
+            }
+        }
+    }
+}
+
+void Map::setColorLayerTileMap(uint32_t layer,sf::Color color) {
+        auto layerMatrixIdSprites = layersMatrixSprite[layer];
+        for (size_t j = 0; j < layerMatrixIdSprites.size(); j++)
+        {
+            auto MatrixSprites = layersMatrixSprite[layer][j];
+            for (size_t k = 0; k < MatrixSprites.size(); k++)
+            {
+                if (MatrixSprites[k].getTexture() != nullptr) {
+                    sf::Vector2i tileSize = layers[layer].getTileSize();
+                    layersMatrixSprite[layer][j][k].setColor(color);
+                }
+            }
+        }
+}
+
 void Map::initLayerMatrix(const std::string& csvPath) {
     std::string line;
     std::ifstream in(csvPath);

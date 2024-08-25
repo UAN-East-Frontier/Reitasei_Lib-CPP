@@ -1,8 +1,57 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
-  Matan.cpp
-F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244: аргумент: преобразование "_Rep" в "unsigned int", возможна потеря данных
-F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:         with
-F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:         [
-F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:             _Rep=__int64
-F:\C++\Reitasei\Reitasei\Matan.cpp(12,82): warning C4244:         ]
+  Animate.cpp
+F:\C++\Reitasei\Reitasei\Animate.cpp(34,72): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(35,74): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(42,78): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(43,80): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(50,94): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(51,96): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(174,74): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(175,75): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(182,72): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(183,74): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(191,94): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(192,96): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(195,97): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(196,99): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(231,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(241,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(251,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(269,70): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(270,74): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(271,58): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(292,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(315,53): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(322,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(329,75): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(436,54): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(443,53): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(451,75): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(454,78): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(486,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(495,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(504,14): warning C4305: инициализация: усечение из "double" в "float"
+F:\C++\Reitasei\Reitasei\Animate.cpp(561,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(571,33): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(590,13): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(594,54): warning C4244: +=: преобразование "T" в "int", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(594,54): warning C4244:         with
+F:\C++\Reitasei\Reitasei\Animate.cpp(594,54): warning C4244:         [
+F:\C++\Reitasei\Reitasei\Animate.cpp(594,54): warning C4244:             T=float
+F:\C++\Reitasei\Reitasei\Animate.cpp(594,54): warning C4244:         ]
+F:\C++\Reitasei\Reitasei\Animate.cpp(598,15): warning C4244: инициализация: преобразование "unsigned int" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(599,17): warning C4244: инициализация: преобразование "unsigned int" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(604,47): warning C4244: аргумент: преобразование "float" в "unsigned int", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(609,80): warning C4244: аргумент: преобразование "float" в "sf::Uint8", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,39): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,39): warning C4244:         with
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,39): warning C4244:         [
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,39): warning C4244:             T=float
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,39): warning C4244:         ]
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,32): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,32): warning C4244:         with
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,32): warning C4244:         [
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,32): warning C4244:             T=float
+F:\C++\Reitasei\Reitasei\Animate.cpp(658,32): warning C4244:         ]
+F:\C++\Reitasei\Reitasei\Animate.cpp(740,27): warning C4244: =: преобразование "float" в "int", возможна потеря данных
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Release\Reitasei.lib

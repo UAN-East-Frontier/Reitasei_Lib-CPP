@@ -37,6 +37,26 @@ Button::Button(const sf::Texture& textureParamater)
 	}
 }
 
+Button::Button(const Button& other) : sprite(other.sprite),
+texture(other.texture),
+shape(other.shape),
+textLabel(other.textLabel),
+addedShapeSize(other.addedShapeSize ? std::make_unique<sf::Vector2f>(*other.addedShapeSize) : nullptr),
+isHover(other.isHover) {}
+
+Button& Button::operator=(const Button& other)
+{
+	if (this == &other) return *this; // Самоприсваивание
+	sprite = other.sprite;
+	texture = other.texture;
+	shape = other.shape;
+	textLabel = other.textLabel;
+	addedShapeSize = other.addedShapeSize ? std::make_unique<sf::Vector2f>(*other.addedShapeSize) : nullptr;
+	isHover = other.isHover;
+	return *this;
+}
+
+
 void Button::setShapeSize()
 {
 	if (sprite != nullptr) {
@@ -456,3 +476,40 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 	else if (sprite != nullptr) target.draw(*sprite, states);
 }
+
+MouseCursor::MouseCursor(const std::string& path)
+{
+	cursor = std::make_unique<sf::Cursor>();
+	if (!image.loadFromFile(path))
+		throw new std::invalid_argument("Image not load");
+	if (!cursor->loadFromPixels(image.getPixelsPtr(), image.getSize(), { 0, 0 })) {
+		throw new std::invalid_argument("Cursor not load Pixel");		
+	}
+
+}
+
+void MouseCursor::setCursor(std::shared_ptr<sf::RenderWindow> window)
+{
+	window->setMouseCursor(*cursor);
+}
+
+void MouseCursor::resetCursor(std::shared_ptr<sf::RenderWindow> window)
+{
+	cursor = std::make_unique<sf::Cursor>();
+	window->setMouseCursor(*cursor);
+}
+
+void MouseCursor::eventCursorEnterWindow(std::shared_ptr<sf::RenderWindow> window,const sf::Event& event)
+{
+	if (event.type == event.MouseEntered) {
+		window->setMouseCursor(*cursor);
+	}
+}
+
+void MouseCursor::setHotspot(std::shared_ptr<sf::RenderWindow> window,sf::Vector2u vector)
+{
+	cursor->loadFromPixels(image.getPixelsPtr(), image.getSize(),vector);
+	window->setMouseCursor(*cursor);
+}
+
+

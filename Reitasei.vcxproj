@@ -51,7 +51,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableASAN>true</EnableASAN>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -152,6 +152,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Figures.cpp" />
     <ClCompile Include="Gui.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Matan.cpp" />
     <ClCompile Include="Spriter.cpp" />
@@ -163,9 +164,11 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Figures.h" />
     <ClInclude Include="Gui.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Matan.h" />
     <ClInclude Include="Range.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Spriter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
