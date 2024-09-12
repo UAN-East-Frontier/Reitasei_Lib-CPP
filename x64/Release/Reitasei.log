@@ -1,20 +1,5 @@
 ﻿  Проверка источников на наличие зависимостей модуля…
-  Map.cpp
-  Spriter.cpp
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,61): warning C4267: аргумент: преобразование из "size_t" в "T"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,61): warning C4267:         with
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,61): warning C4267:         [
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,61): warning C4267:             T=int
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,61): warning C4267:         ]
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,49): warning C4267: аргумент: преобразование из "size_t" в "T"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,49): warning C4267:         with
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,49): warning C4267:         [
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,49): warning C4267:             T=int
-F:\C++\Reitasei\Reitasei\Spriter.cpp(74,49): warning C4267:         ]
-F:\C++\Reitasei\Reitasei\Spriter.cpp(179,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(180,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(224,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(225,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(243,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\C++\Reitasei\Reitasei\Spriter.cpp(244,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  Vector2.cpp
+F:\C++\Reitasei\Reitasei\Vector2.cpp(60,34): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+F:\C++\Reitasei\Reitasei\Vector2.cpp(60,23): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
   Reitasei.vcxproj -> F:\C++\Reitasei\x64\Release\Reitasei.lib

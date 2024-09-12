@@ -1,8 +1,10 @@
 #pragma once
 #include "Vector2.h"
+#include <iostream>
 
 gm::Vector2::Vector2(float x, float y) : sf::Vector2f(x, y) {
-
+    this->x = x;
+    this->y = y;
 }
 
 float gm::Vector2::length() const {
