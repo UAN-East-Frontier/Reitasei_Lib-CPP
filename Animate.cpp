@@ -738,8 +738,14 @@ void AnimateNumber::setNewNumberValue(int newValue) {
 void AnimateNumber::updateNumberValue() {
     float T = getT(duration, clock);
     number = targetNumber * T;
-    label.text.setString(std::to_string(number));
-    
+    auto strNum = std::to_string(number);
+    std::string newZeros = zeros;
+    if (newZeros.size() - strNum.size() > 0) {
+        newZeros.replace(newZeros.size() - strNum.size(), newZeros.size(), strNum);
+        label.text.setString(newZeros);
+    }
+    else label.text.setString(strNum);
+    //label.text.setString(std::to_string(number));
 }
 
 void AnimateNumber::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -766,7 +772,6 @@ void AnimateNumber::setPosition(const sf::Vector2f& pos) {
     label.text.setPosition(pos);
 }
 
-
 void AnimateNumber::setSpritesNumbers(const std::vector<std::string>& pathsTexture)
 {
     if (pathsTexture.size() < 10)
@@ -781,6 +786,21 @@ void AnimateNumber::setSpritesNumbers(const std::vector<std::string>& pathsTextu
        numbers.push_back(sprite);
        spritesNumbers.push_back(numbers[i]);
     }
+}
+
+void AnimateNumber::setCountZero(uint32_t countZero) {
+    zeros = "";
+    for (size_t i = 0; i < countZero; i++)
+    {
+        zeros += '0';
+    }
+    auto strNum = std::to_string(number);
+    std::string newZeros = zeros;
+    if (newZeros.size() - strNum.size() > 0) {
+        newZeros.replace(newZeros.size() - strNum.size(), newZeros.size(), strNum);
+        label.text.setString(newZeros);
+    }
+    else label.text.setString(strNum);
 }
 
 int AnimateNumber::getNumber()

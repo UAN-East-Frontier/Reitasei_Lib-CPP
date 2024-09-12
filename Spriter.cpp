@@ -38,7 +38,7 @@ Spriter::Spriter(const std::string& path, const sf::IntRect& rect) {
     }
 }
 
-Spriter::Spriter(const char* path, sf::IntRect& rect, const  sf::Vector2f& position)
+Spriter::Spriter(const char* path, const sf::IntRect& rect, const  sf::Vector2f& position)
 {
     if (loadTexChar(path)) {
         sprite.setTextureRect(rect);
@@ -47,7 +47,7 @@ Spriter::Spriter(const char* path, sf::IntRect& rect, const  sf::Vector2f& posit
     }
 }
 
-Spriter::Spriter(const std::string& path, sf::IntRect& rect, const sf::Vector2f& position)
+Spriter::Spriter(const std::string& path, const sf::IntRect& rect, const sf::Vector2f& position)
 {
     if (loadTexString(path)) {
         sprite.setTextureRect(rect);

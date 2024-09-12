@@ -23,9 +23,9 @@ public:
 
     Spriter(const std::string& path, const sf::IntRect& rect);
 
-    Spriter(const char* path, sf::IntRect& rect, const sf::Vector2f& position);
+    Spriter(const char* path, const sf::IntRect& rect, const sf::Vector2f& position);
 
-    Spriter(const std::string& path, sf::IntRect& rect, const sf::Vector2f& position);
+    Spriter(const std::string& path, const sf::IntRect& rect, const sf::Vector2f& position);
 
     void setTextureRect(const sf::IntRect& rect);
 

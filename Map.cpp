@@ -111,7 +111,7 @@ void Map::drawMap(std::shared_ptr<sf::RenderWindow> window) {
             {
                 if (MatrixSprites[k].getTexture() != nullptr) {
                     sf::Vector2i tileSize = layers[i].getTileSize();
-                    layersMatrixSprite[i][j][k].setPosition(sf::Vector2f(k * tileSize.x, j * tileSize.y));
+                    layersMatrixSprite[i][j][k].setPosition(sf::Vector2f(position.x + k * tileSize.x, position.y + j * tileSize.y));
                     window->draw(layersMatrixSprite[i][j][k]);
                 }
 

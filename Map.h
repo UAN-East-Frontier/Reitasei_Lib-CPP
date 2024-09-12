@@ -12,7 +12,7 @@ public:
     Map(const std::string& csvPath, const std::string& tilePath, const sf::Vector2i& size);
     Map(const std::vector<std::string>& cvssPath, const std::vector<std::string>& tilesPath, const sf::Vector2i& size);
     Map(const std::vector<std::string>& cvssPath, const std::vector<std::string>& tilesPath, const std::vector<sf::Vector2i>& sizes);
-
+    sf::Vector2f position;
     void drawMap(std::shared_ptr<sf::RenderWindow> window);
     void changeTextureTile(const std::string& path, const sf::IntRect& rect, uint32_t layer, uint32_t row, uint32_t col);
     std::reference_wrapper<sf::Sprite> getSprite(uint32_t layer, uint32_t row, uint32_t col);

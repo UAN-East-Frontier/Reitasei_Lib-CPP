@@ -157,28 +157,30 @@ private:
 class AnimateNumber : public sf::Drawable {
 public:
     float duration = 0.05f;
-    sf::Vector2f scale = sf::Vector2f(1,1);
+    sf::Vector2f scale = sf::Vector2f(1, 1);
     void setNewNumberValue(int newValue);
     void updateNumberValue();
     void setPosition(const sf::Vector2f& pos);
     void setSpritesNumbers(const std::vector<std::string>& pathsTexture);
+    void setCountZero(uint32_t countZero);
     int getNumber();
 
     AnimateNumber(const TextLabel& txt);
     AnimateNumber(const TextLabel& txt, float dur, int num);
     AnimateNumber(const TextLabel& txt, const std::vector<std::string>& pathsTexture);
-    AnimateNumber(const TextLabel& txt, const std::vector<std::string>& pathsTexture,float dur, int num);
+    AnimateNumber(const TextLabel& txt, const std::vector<std::string>& pathsTexture, float dur, int num);
 
 private:
     sf::Clock clock;
     int number = 0;
     int targetNumber = 0;
     TextLabel label;
-    std::vector < sf::Sprite> numbers;
+    std::vector <sf::Sprite> numbers;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     std::vector<sf::Sprite> spritesNumbers;
     std::vector<std::shared_ptr<sf::Texture>> texturesNumbers;
-    uint32_t space = 3;
+    std::string zeros = "";
+
 };
 
 
